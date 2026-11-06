@@ -1,6 +1,6 @@
 {
  "asOf": "2026-11-06",
- "generatedAt": "2026-11-06T22:51+05:30",
+ "generatedAt": "2026-11-06T22:55+05:30",
  "verdict": "NO TRADE",
  "verdictTone": "warn",
  "summary": "The market check scored 4 of 10 (NIFTY RSI 78.6), so new entries should wait.",
@@ -88,18 +88,18 @@
   },
   {
    "name": "S&P 500",
-   "close": 7408.16,
-   "d1": 0.74,
-   "d5": -2.27,
-   "rsi": 37.2,
+   "close": 7416.52,
+   "d1": 0.85,
+   "d5": -2.16,
+   "rsi": 37.7,
    "date": "2026-11-06"
   },
   {
    "name": "Brent crude",
-   "close": 97.41,
-   "d1": -0.9,
-   "d5": -17.2,
-   "rsi": 38.4,
+   "close": 97.54,
+   "d1": -0.76,
+   "d5": -17.09,
+   "rsi": 38.6,
    "date": "2026-11-06"
   },
   {

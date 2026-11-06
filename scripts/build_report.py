@@ -343,6 +343,14 @@ def main():
         verdict, tone = "WAIT", "warn"
         why = "No candidate is in its entry zone at a score worth acting on."
 
+    # Monthly plan: strongest 6-month performers above their EMA 200. The app applies it once a month.
+    momentum = [
+        {"symbol": m["symbol"], "name": info[m["symbol"]][1], "sector": info[m["symbol"]][2], "close": round(m["close"], 2),
+         "ret6m": round((m["close"] / m["rows"][-127]["c"] - 1) * 100, 1)}
+        for m in stocks if m["close"] > m["ema200"]
+    ]
+    momentum.sort(key=lambda x: x["ret6m"], reverse=True)
+
     above20 = sum(m["close"] > m["ema20"] for m in stocks)
     hot = sum(m["rsi"] > 70 for m in stocks)
     report = {
@@ -350,7 +358,7 @@ def main():
         "classification": market["label"], "market": index_rows(),
         "notes": [f"{above20} of {len(stocks)} NIFTY 100 stocks scanned are above EMA 20, and {hot} have an RSI above 70.",
                   f"NIFTY is {market['e20gap']:.1f}% from its EMA 20."],
-        "candidates": candidates, "chargeSchedule": CHARGES, "universe": [list(u) for u in universe],
+        "candidates": candidates, "monthlyPlan": {"marketOk": market["above200"], "ranked": momentum[:20]}, "chargeSchedule": CHARGES, "universe": [list(u) for u in universe],
         "validation": {"sessionsTracked": session_count(previous, as_of), "backtestEdge": False},
         "gaps": [] if bhav else ["NSE delivery data was unavailable today, so delivery percentages are missing."],
     }

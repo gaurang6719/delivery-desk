@@ -1,5 +1,5 @@
 // Keeps the app and the last report available offline. Always tries the network first.
-const CACHE = "delivery-desk-v2";
+const CACHE = "delivery-desk-v3";
 const SHELL = ["./", "./index.html", "./app.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (e) => e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())));

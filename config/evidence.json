@@ -1,12 +1,21 @@
 {
-  "summary": "Neither set of trading rules made money after charges at any capital size tested. Holding the NIFTY did better over the same period, though it also fell hard at its worst.",
+  "summary": "No dip-buying version beat simply holding the NIFTY. Splitting those trades across more companies made results much worse, because each stock adds its own charges.",
   "rows": [
-    {"label": "Breakout rules", "start": 15000, "end": 8160, "dd": 57.2},
-    {"label": "Pullback rules, no market filter", "start": 15000, "end": 2725, "dd": 82.9},
-    {"label": "Pullback rules, market filter", "start": 15000, "end": 6844, "dd": 54.8},
-    {"label": "Pullback rules, market filter", "start": 50000, "end": 34807, "dd": 32.1},
-    {"label": "Pullback rules, market filter", "start": 100000, "end": 75989, "dd": 26.3},
-    {"label": "Hold the NIFTY 50", "start": 15000, "end": 38327, "dd": 38.4, "highlight": true}
+    {"label": "Hold the NIFTY 50", "start": 15000, "end": 37876, "dd": 38.4, "highlight": true},
+    {"label": "Dip buying, all money in one stock", "start": 15000, "end": 36742, "dd": 52.3},
+    {"label": "Dip buying, split across 3 companies", "start": 15000, "end": 9394, "dd": 56.8},
+    {"label": "Breakout rules, 1% risk per trade", "start": 15000, "end": 8160, "dd": 57.2},
+    {"label": "Dip buying, 1% risk per trade", "start": 15000, "end": 6844, "dd": 54.8},
+    {"label": "Dip buying, split across 5 companies", "start": 15000, "end": 35, "dd": 99.8}
   ],
-  "note": "Aug 2017 to Nov 2026, one trade at a time, with Groww charges and 0.1% slippage each way. Stocks are today's NIFTY 100, which flatters the trading rules. The NIFTY line is price only, excludes dividends and fund costs, and is past performance rather than a promise."
+  "note": "Aug 2017 to Nov 2026, with Groww charges and 0.1% slippage each way. Stocks are today's NIFTY 100, which flatters the trading rules. The NIFTY line is price only, excludes dividends and fund costs, and is past performance rather than a promise.",
+  "monthly": {
+    "rows": [
+      {"label": "5 strongest companies", "end": 155197, "dd": 36.3, "recent": 99},
+      {"label": "3 strongest companies", "end": 135326, "dd": 44.7, "recent": 79},
+      {"label": "Hold the NIFTY 50", "end": 37876, "dd": 38.4, "recent": 115}
+    ],
+    "recentYears": 2.8,
+    "note": "Don't trust the big numbers. The test used today's NIFTY 100, a list that already contains past winners, so it could choose companies whose success wasn't known at the time. The last 2.8 years are the better warning."
+  }
 }

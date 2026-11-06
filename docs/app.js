@@ -11,7 +11,7 @@
     moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>',
   };
   const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
-  const TABS = [["home", "Home", "home"], ["stocks", "Stocks", "stocks"], ["trades", "My trades", "trades"], ["money", "Money", "money"], ["help", "Help", "help"]];
+  const TABS = [["home", "Home", "home"], ["stocks", "Plan", "stocks"], ["trades", "My trades", "trades"], ["money", "Money", "money"], ["help", "Help", "help"]];
   const OLD_TABS = { today: "home", watchlist: "stocks", journal: "trades" };
   const RISK = {
     low: { label: "Low", trade: 0.005, book: 0.01, note: "Smaller trades and smaller possible losses." },
@@ -19,9 +19,9 @@
   };
   const DEFAULT_CHARGES = { pct: 0.001, min: 5, max: 20, stt: 0.001, exch: 0.0000297, sebi: 0.000001, stamp: 0.00015, dp: 20, dpSmall: 3.5, gst: 0.18 };
   const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
-  const FRESH = () => ({ deposits: [{ date: today(), amount: 15000 }], riskLevel: "medium", account: "paper", trades: [], theme: "auto", guideSeen: false });
+  const FRESH = () => ({ deposits: [{ date: today(), amount: 15000 }], riskLevel: "medium", account: "paper", trades: [], theme: "auto", guideSeen: false, basket: null, basketRealized: 0 });
 
-  const state = { tab: "home", report: null, prices: null, loaded: false, offline: false, data: load(), prefill: null, showForm: false, closing: null, delArm: null, error: "", backup: "", backupError: "", storageOk: true };
+  const state = { planView: "split", planN: 5, planAmt: null, stopArm: false, tab: "home", report: null, prices: null, loaded: false, offline: false, data: load(), prefill: null, showForm: false, closing: null, delArm: null, error: "", backup: "", backupError: "", storageOk: true };
 
   function load() {
     try { const raw = localStorage.getItem(STORE); if (raw) return Object.assign(FRESH(), JSON.parse(raw)); } catch (e) {}
@@ -76,8 +76,9 @@
   function account(m) {
     const list = state.data.trades.filter((t) => t.mode === m);
     const open = list.filter((t) => t.sellPrice == null), closed = list.filter((t) => t.sellPrice != null);
-    const realized = closed.reduce((s, t) => s + netOf(t), 0);
-    const invested = open.reduce((s, t) => s + t.buyPrice * t.qty, 0);
+    const basket = m === "paper" ? state.data.basket : null;
+    const realized = closed.reduce((s, t) => s + netOf(t), 0) + (m === "paper" ? state.data.basketRealized || 0 : 0);
+    const invested = open.reduce((s, t) => s + t.buyPrice * t.qty, 0) + (basket ? basket.startValue : 0);
     const openRisk = open.reduce((s, t) => s + Math.max(0, (t.buyPrice - t.stop) * t.qty) + charges(t.buyPrice, t.stop, t.qty), 0);
     const capital = deposited() + realized;
     return { open, closed, realized, invested, openRisk, capital, cash: capital - invested };
@@ -101,14 +102,73 @@
     return { q, limit, invest: entry * q, loss, n1, n2, chg: charges(entry, c.t2, q), rr: n2 / loss, gross: (c.t2 - entry) / (entry - c.stop) };
   }
   function validation() {
-    const v = (state.report && state.report.validation) || {}, s = stats("paper");
+    const v = (state.report && state.report.validation) || {}, s = stats("paper"), b = state.data.basket;
+    const fair = ["A fair past-data test beats the NIFTY", v.backtestEdge === true, v.backtestEdge === true ? "Yes" : "Not yet: no rule has shown this"];
+    if (b && b.firstBuyDate) {
+      const r = basketResult(b), months = monthsSince(b.firstBuyDate);
+      const checks = [
+        ["Practise the monthly plan for 6 months", months >= 6, months + " of 6 months"],
+        ["Beat the NIFTY in practice, after charges", months >= 6 && r.niftyPct != null && r.pct > r.niftyPct, r.niftyPct == null ? "Not measured yet" : `Plan ${pctText(+r.pct.toFixed(1))}, NIFTY ${pctText(+r.niftyPct.toFixed(1))}`],
+        fair,
+      ];
+      return { checks, ok: checks.every((c) => c[1]), progress: Math.min(1, months / 6), progressLabel: months + " of 6 practice months" };
+    }
     const checks = [
       ["Practise for 20 market days", (v.sessionsTracked || 0) >= 20, (v.sessionsTracked || 0) + " of 20 days"],
       ["Finish 20 practice trades", s.n >= 20, s.n + " of 20 trades"],
       ["Make a profit in practice, after charges", s.n > 0 && s.net > 0, s.n ? signed(s.net) : "No finished trades yet"],
-      ["Past-data tests show a profit after charges", v.backtestEdge === true, v.backtestEdge === true ? "Yes" : "Not yet: the tested rules lost money"],
+      fair,
     ];
-    return { checks, ok: checks.every((c) => c[1]), sessions: v.sessionsTracked || 0 };
+    return { checks, ok: checks.every((c) => c[1]), progress: Math.min(1, (v.sessionsTracked || 0) / 20), progressLabel: (v.sessionsTracked || 0) + " of 20 practice days" };
+  }
+
+  /* ---------- monthly plan: hold the strongest companies, review once a month ---------- */
+  const monthOf = (iso) => String(iso || "").slice(0, 7);
+  const monthsSince = (iso) => { const a = new Date(iso + "T00:00:00"), b = new Date(today() + "T00:00:00"); return Math.max(0, Math.floor((b - a) / (30.44 * 86400000))); };
+  const niftyClose = () => { const m = state.report && (state.report.market || []).find((x) => x.name === "NIFTY 50"); return m ? m.close : null; };
+  const rankedList = () => { const p = state.report && state.report.monthlyPlan; return p && p.marketOk ? p.ranked || [] : []; };
+  function lastPrice(symbol) {
+    const p = state.prices && state.prices.prices && state.prices.prices[symbol];
+    if (p != null) return p;
+    const hit = ((state.report && state.report.monthlyPlan && state.report.monthlyPlan.ranked) || []).find((x) => x.symbol === symbol);
+    return hit ? hit.close : null;
+  }
+  const holdingPrice = (h) => { const p = lastPrice(h.symbol); return p == null ? h.buyPrice : p; };
+  function basketResult(b) {
+    const value = b.cash + b.holdings.reduce((s, h) => s + h.qty * holdingPrice(h), 0);
+    const sellCost = b.holdings.reduce((s, h) => s + charges(h.buyPrice, holdingPrice(h), h.qty), 0);
+    const afterCharges = value - sellCost, now = niftyClose();
+    return { value, sellCost, afterCharges, pct: b.startValue ? (afterCharges / b.startValue - 1) * 100 : 0, gain: afterCharges - b.startValue, niftyPct: b.startNifty && now ? (now / b.startNifty - 1) * 100 : null };
+  }
+  function pickBuys(n, heldSymbols, heldCount, cash, equity) {
+    const held = new Set(heldSymbols), buys = [];
+    let avail = cash, count = heldCount;
+    for (const r of rankedList()) {
+      if (count >= n) break;
+      if (held.has(r.symbol)) continue;
+      const q = Math.floor(Math.min(avail, equity / n) / r.close);
+      if (q > 0) { buys.push({ symbol: r.symbol, name: r.name, sector: r.sector, qty: q, price: r.close, ret6m: r.ret6m }); avail -= q * r.close; count++; }
+    }
+    return { buys, left: avail };
+  }
+  function reviewPlan(b) {
+    const keepSet = new Set(rankedList().slice(0, 2 * b.n).map((r) => r.symbol));
+    const sells = b.holdings.filter((h) => lastPrice(h.symbol) != null && !keepSet.has(h.symbol));
+    const keeps = b.holdings.filter((h) => !sells.includes(h));
+    const sellCharges = sells.reduce((s, h) => s + charges(h.buyPrice, holdingPrice(h), h.qty), 0);
+    const cash = b.cash + sells.reduce((s, h) => s + h.qty * holdingPrice(h), 0) - sellCharges;
+    const equity = cash + keeps.reduce((s, h) => s + h.qty * holdingPrice(h), 0);
+    const picked = pickBuys(b.n, keeps.map((h) => h.symbol), keeps.length, cash, equity);
+    return { sells, keeps, buys: picked.buys, cash: picked.left, sellCharges };
+  }
+  const reviewDue = () => { const b = state.data.basket; return !!(b && state.report && monthOf(state.report.asOf) !== b.lastReview); };
+  function applyReview() {
+    const b = state.data.basket, plan = reviewPlan(b), date = state.report.asOf;
+    b.sold = (b.sold || []).concat(plan.sells.map((h) => ({ symbol: h.symbol, qty: h.qty, buyPrice: h.buyPrice, sellPrice: holdingPrice(h), date, net: (holdingPrice(h) - h.buyPrice) * h.qty - charges(h.buyPrice, holdingPrice(h), h.qty) })));
+    b.holdings = plan.keeps.concat(plan.buys.map((x) => ({ symbol: x.symbol, name: x.name, qty: x.qty, buyPrice: x.price, buyDate: date })));
+    b.cash = plan.cash;
+    b.lastReview = monthOf(date);
+    if (plan.buys.length && !b.firstBuyDate) { b.firstBuyDate = date; b.startNifty = niftyClose(); }
   }
   function posStatus(t) {
     const p = state.prices && state.prices.prices && state.prices.prices[t.symbol];
@@ -128,7 +188,7 @@
         : /bearish/i.test(r.classification || "") ? "The market is weak right now, so buying carries extra risk." : "The market check didn't pass today, so new buys should wait.",
       todo: "Do nothing today. Check again after 7:00 PM on the next market day.",
     };
-    if (r.verdict === "PAPER SETUP") return { title: "A practice trade is ready", why: "A stock has reached its buying range. Practise with it, because the tested rules lost money after charges.", todo: "Open Stocks, check the company's news, then log a practice trade." };
+    if (r.verdict === "PAPER SETUP") return { title: "A practice trade is ready", why: "A stock has reached its buying range. Practise with it, because no rule has reliably beaten the NIFTY.", todo: "Open Plan, then Dip list, check the company's news, and log a practice trade." };
     return { title: "Nothing to buy yet", why: "The market is fine, but no stock has reached a good buying price.", todo: "Do nothing today. Check again after 7:00 PM on the next market day." };
   }
   const mood = (r) => (/overextended/i.test(r.classification || "") ? "Rising fast" : /bullish/i.test(r.classification || "") ? "Rising" : /bearish/i.test(r.classification || "") ? "Falling" : "Flat");
@@ -153,21 +213,23 @@
       <div class="bar-track"><div class="bar-fill ${x.highlight ? "hi" : ""}" style="width:${((x.end / max) * 100).toFixed(1)}%"></div><span class="bar-start" style="left:${((15000 / max) * 100).toFixed(1)}%"></span></div></li>`).join("")}</ul>
       <p class="faint">The thin line on each bar marks the ₹15,000 starting amount.</p>`;
   }
-  const plainRow = (l) => ({ "Hold the NIFTY 50": "Just holding the NIFTY 50", "Breakout rules": "Buying breakouts", "Pullback rules, market filter": "Buying dips, with a market check", "Pullback rules, no market filter": "Buying dips, no market check" }[l] || l);
+  const plainRow = (l) => (l === "Hold the NIFTY 50" ? "Just holding the NIFTY 50" : l);
 
   /* ---------- views ---------- */
   function vHome() {
     const r = state.report;
     if (!r) return `<section class="card"><h1>Welcome</h1><p>${state.offline ? "You're offline and no report is saved yet. Connect once to load it." : "No report has been published yet. It appears after the first daily run."}</p></section>`;
     const days = Math.floor((new Date(today()) - new Date(r.asOf)) / 86400000);
-    const pv = plainVerdict(r), v = validation(), m = mode(), a = account(m);
+    const v = validation(), m = mode(), a = account(m), due = reviewDue();
+    const pv = due ? { title: "Your monthly review is ready", why: "It's a new month, so the plan can update which companies you hold.", todo: "Open Plan and record this month's practice changes." } : plainVerdict(r);
     const nifty = (r.market || []).find((x) => x.name === "NIFTY 50"), vix = (r.market || []).find((x) => x.name === "India VIX");
     const alerts = state.data.trades.filter((t) => t.sellPrice == null).map((t) => [t, posStatus(t)]).filter((x) => x[1].tone);
     return `
-    <section class="card hero ${esc(r.verdictTone)}">
+    <section class="card hero ${due ? "good" : esc(r.verdictTone)}">
       <span class="kicker">Today's answer · based on the ${esc(niceDate(r.asOf))} close</span>
       <h1>${esc(pv.title)}</h1><p>${esc(pv.why)}</p><div class="do">${esc(pv.todo)}</div>
     </section>
+    ${state.data.basket || due ? "" : `<section class="card"><div class="row"><div><h2>Want to split your money?</h2><p class="muted">Practise holding several companies, with one check a month.</p></div><button class="primary" data-tab="stocks">See the plan</button></div></section>`}
     ${state.data.guideSeen ? "" : `<section class="card"><div class="row"><div><h2>New here?</h2><p class="muted">See how this works in one minute.</p></div><div class="btns"><button class="primary" data-tab="help">Show me</button><button data-dismiss="1">Not now</button></div></div></section>`}
     ${days > 4 ? `<div class="notice warn">This report is ${days} days old, so don't rely on its prices.</div>` : ""}
     ${state.offline ? `<div class="notice warn">You're offline, so this is the last saved report.</div>` : ""}
@@ -180,10 +242,10 @@
     </div>
     <div class="two-col">
       <section class="card"><div class="row"><h2>Ready for real money?</h2><span class="pill ${v.ok ? "good" : "warn"}">${v.ok ? "Checks passed" : "Not yet"}</span></div>
-        <div class="progress" role="img" aria-label="${v.sessions} of 20 practice days"><i style="width:${Math.min(100, (v.sessions / 20) * 100)}%"></i></div>
+        <div class="progress" role="img" aria-label="${esc(v.progressLabel)}"><i style="width:${(v.progress * 100).toFixed(0)}%"></i></div>
         <ul class="checks">${v.checks.map((c) => `<li class="${c[1] ? "met" : ""}"><span class="mark" aria-hidden="true">${c[1] ? "✓" : "–"}</span><div>${esc(c[0])}<div class="faint">${c[1] ? "Done" : "Not done"} · ${esc(c[2])}</div></div></li>`).join("")}</ul>
         <p class="faint">No app can promise 100% certainty. Your only no-risk choices are cash and practice trades.</p></section>
-      ${r.evidence ? `<section class="card"><h2>Do these rules make money?</h2><p class="muted">Not in our tests. Here's what ₹15,000 became from Aug 2017 to Nov 2026, after charges:</p>${evidenceBars(r)}
+      ${r.evidence ? `<section class="card"><h2>Do trading rules beat the market?</h2><p class="muted">Not in these tests. Here's what ₹15,000 became from Aug 2017 to Nov 2026, after charges:</p>${evidenceBars(r)}
         <details><summary>More detail on this test</summary><div><p class="muted">${esc(r.evidence.summary)}</p><div class="scroll"><table><thead><tr><th>Approach</th><th>Start</th><th>End</th><th>Worst fall</th></tr></thead><tbody>${r.evidence.rows.map((x) => `<tr><td>${esc(plainRow(x.label))}</td><td>${inr(x.start)}</td><td>${inr(x.end)}</td><td>${esc(x.dd)}%</td></tr>`).join("")}</tbody></table></div><p class="faint">${esc(r.evidence.note)}</p></div></details></section>` : ""}
     </div>
     <details class="card"><summary>See all market numbers</summary><div>
@@ -192,9 +254,65 @@
     <p class="faint">Prices aren't live. This app uses fixed rules, not advice from a SEBI-registered adviser, can't place orders, and never asks for your Groww login.</p>`;
   }
 
+  function vPlan() {
+    const seg = `<div class="btns fill" role="group" aria-label="Plan type"><button data-planview="split" aria-pressed="${state.planView === "split"}">Split my money</button><button data-planview="dips" aria-pressed="${state.planView === "dips"}">Dip list</button></div>`;
+    return seg + (state.planView === "split" ? vSplit() : vStocks());
+  }
+
+  function monthlyEvidence() {
+    const e = state.report && state.report.evidence && state.report.evidence.monthly;
+    if (!e) return "";
+    return `<details class="card"><summary>Has this plan worked before?</summary><div>
+      <p class="muted">₹15,000 from Aug 2017 to Nov 2026, after charges, and what ₹100 became in the last ${esc(e.recentYears)} years:</p>
+      <div class="scroll"><table><thead><tr><th>Approach</th><th>End</th><th>Worst fall</th><th>Recent ₹100</th></tr></thead><tbody>${e.rows.map((x) => `<tr><td>${esc(x.label)}</td><td>${inr(x.end)}</td><td>${esc(x.dd)}%</td><td>${inr(x.recent)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="notice warn">${esc(e.note)}</div></div></details>`;
+  }
+
+  function vSplit() {
+    const r = state.report, b = state.data.basket;
+    if (!r || !r.monthlyPlan) return `<section class="card"><h1>Split my money</h1><p class="muted">The company list appears after the next daily report.</p></section>`;
+    const worst = state.planN === 3 ? 44.7 : 36.3;
+    if (!b) {
+      const a = account("paper"), max = Math.max(0, Math.floor(a.cash));
+      const amt = state.planAmt == null ? max : Math.min(state.planAmt, max);
+      const pick = pickBuys(state.planN, [], 0, amt, amt);
+      const cost = pick.buys.reduce((s, x) => s + x.qty * x.price, 0), chg = pick.buys.reduce((s, x) => s + charges(x.price, x.price, x.qty), 0);
+      return `<section class="card"><h1>Split my money</h1><p>Hold several strong companies instead of one, and check once a month, not every day.</p>
+        <ol class="steps"><li><div><strong>Pick how many companies</strong><div class="muted">Your money is divided equally between them.</div></div></li><li><div><strong>The app chooses the strongest</strong><div class="muted">It picks the biggest 6-month risers among NIFTY 100 stocks above their long-term trend.</div></div></li><li><div><strong>Review once a month</strong><div class="muted">Companies that fall too far down the list are replaced. If the NIFTY drops below its long-term trend, the plan moves to cash.</div></div></li></ol></section>
+      <section class="card"><h2>How many companies?</h2><div class="btns fill">${[3, 5].map((n) => `<button data-plann="${n}" aria-pressed="${state.planN === n}">${n} companies</button>`).join("")}</div>
+        <label>Practice money to use (₹)<input id="planAmt" inputmode="numeric" value="${amt}"></label>
+        <p class="muted">${state.planN === 5 ? "5 companies spread your risk more, but buying and selling all of them costs more." : "3 companies cost less to trade, but one bad company hurts more."}</p></section>
+      <section class="card"><div class="row"><h2>${pick.buys.length ? "If it started today" : "No companies to buy today"}</h2><span class="pill">Example</span></div>
+        ${pick.buys.length ? `<div class="scroll"><table><thead><tr><th>Company</th><th>Shares</th><th>Cost</th><th>6 months</th></tr></thead><tbody>${pick.buys.map((x) => `<tr><td>${esc(x.name)}<div class="faint">${esc(x.symbol)} · ${esc(x.sector)}</div></td><td>${x.qty}</td><td>${inr(x.qty * x.price)}</td><td class="pos">${pctText(x.ret6m)}</td></tr>`).join("")}</tbody></table></div>
+        <div class="big-facts"><div class="big-fact"><span>Invested / left in cash</span><strong>${inr(cost)} / ${inr(amt - cost)}</strong></div><div class="big-fact"><span>Charges to buy and later sell all</span><strong>${inr(chg)} (${cost ? ((chg / cost) * 100).toFixed(1) : 0}%)</strong></div></div>` : `<p class="muted">The market is below its long-term trend, or your amount is too small, so the plan would stay in cash.</p>`}
+        <div class="notice warn">This isn't low risk, and no stop-loss protects each share. The worst fall in testing was ${worst}%, which would be about ${inr((amt * worst) / 100)} on ${inr(amt)}.</div>
+        ${state.error ? `<div class="notice bad">${esc(state.error)}</div>` : ""}
+        <button class="primary" data-planstart="1">Start practice plan</button>
+        <p class="faint">No real money is used. Your first practice buys happen at the first review next month, so you don't chase today's rally. The companies may change by then. A share too expensive for its equal portion is skipped, so some money can stay in cash.</p></section>
+      ${monthlyEvidence()}`;
+    }
+    const res = basketResult(b), due = reviewDue(), avail = Math.floor(account("paper").cash);
+    const rp = due ? reviewPlan(b) : null;
+    const line = (name, sym, right, tone) => `<div class="row"><div><strong>${esc(name)}</strong><div class="faint">${esc(sym)}</div></div><span class="pill ${tone}">${esc(right)}</span></div>`;
+    return `<section class="card"><div class="row"><h1>My monthly plan</h1><span class="pill">Practice</span></div>
+        <div class="big-facts"><div class="big-fact"><span>Value after charges</span><strong>${inr(res.afterCharges)}</strong></div><div class="big-fact"><span>Gain or loss</span><strong class="${cls(res.gain)}">${signed(res.gain)}</strong></div>
+        <div class="big-fact"><span>Plan since first buy</span><strong class="${cls(res.pct)}">${b.firstBuyDate ? pctText(+res.pct.toFixed(1)) : "Not started"}</strong></div><div class="big-fact"><span>NIFTY in the same time</span><strong class="${res.niftyPct == null ? "" : cls(res.niftyPct)}">${res.niftyPct == null ? "Not started" : pctText(+res.niftyPct.toFixed(1))}</strong></div></div>
+        <p class="faint">${b.n} companies. ${due ? "A review is ready now." : b.holdings.length ? "Next review: first market day of next month." : "First practice buys: first market day of next month."} Prices are end-of-day.</p></section>
+      ${due ? `<section class="card"><h2>This month's changes</h2>
+        ${rp.sells.map((h) => line(h.name || h.symbol, `Sell ${h.qty} shares at about ${px(holdingPrice(h))}`, "Sell", "bad")).join("")}
+        ${rp.buys.map((x) => line(x.name, `Buy ${x.qty} shares at about ${px(x.price)}`, "Buy", "good")).join("")}
+        ${rp.keeps.map((h) => line(h.name || h.symbol, `Keep ${h.qty} shares`, "Keep", "")).join("")}
+        ${!rp.sells.length && !rp.buys.length && !rp.keeps.length ? `<p class="muted">The market is below its long-term trend, so the plan stays in cash this month.</p>` : ""}
+        <button class="primary" data-planreview="1">Record this review</button><p class="faint">This updates your practice plan at the latest closing prices. It doesn't touch Groww.</p></section>` : ""}
+      ${b.holdings.length ? `<section class="card"><h2>What you hold</h2><div class="scroll"><table><thead><tr><th>Company</th><th>Shares</th><th>Value</th><th>Gain</th></tr></thead><tbody>${b.holdings.map((h) => { const p = holdingPrice(h), g = (p - h.buyPrice) * h.qty; return `<tr><td>${esc(h.name || h.symbol)}<div class="faint">${esc(h.symbol)}</div></td><td>${h.qty}</td><td>${inr(p * h.qty)}</td><td class="${cls(g)}">${signed(g)}</td></tr>`; }).join("")}<tr><td>Cash</td><td></td><td>${inr(b.cash)}</td><td></td></tr></tbody></table></div><p class="faint">Gains are before charges. ${esc("Check each company's news on Screener or NSE.")}</p></section>` : ""}
+      ${avail > 0 ? `<section class="card"><h2>Add more money to the plan</h2><p class="muted">You have ${inr(avail)} of practice money outside the plan. It gets invested at the next review.</p><button data-planadd="1">Move ${inr(avail)} into the plan</button></section>` : ""}
+      ${monthlyEvidence()}
+      <section class="card"><h2>End the plan</h2><p class="muted">This "sells" everything at the latest prices and returns the result to your practice money.</p><button data-planstop="1">${state.stopArm ? "Tap again to end the plan" : "End practice plan"}</button></section>`;
+  }
+
   function vStocks() {
     const r = state.report, cands = (r && r.candidates) || [], m = mode(), a = account(m), risk = riskCfg();
-    const head = `<section class="card"><h1>Stocks to watch</h1><p class="muted">Plans are sized for your ${esc(modeName(m))} money: ${inr(a.cash)} available, and a planned loss of up to ${inr(a.capital * risk.trade)} per trade.</p></section>`;
+    const head = `<section class="card"><h1>Dip list</h1><p class="muted">Single trades with a stop-loss. Plans are sized for your ${esc(modeName(m))} money: ${inr(a.cash)} available, and a planned loss of up to ${inr(a.capital * risk.trade)} per trade.</p></section>`;
     if (!cands.length) return head + `<section class="card"><p>No stock passes the rules today. Staying in cash is a good decision.</p></section>`;
     return head + `<div class="stock-grid">${cands.map((c) => {
       const [label, tone] = stockStatus(c), inZone = c.recommendation === "PAPER SETUP";
@@ -244,7 +362,7 @@
       <div class="big-facts"><div class="big-fact"><span>Practice result after charges</span><strong class="${cls(p.net)}">${p.n ? signed(p.net) : "No trades yet"}</strong></div><div class="big-fact"><span>Real money result after charges</span><strong class="${cls(rl.net)}">${rl.n ? signed(rl.net) : "No trades yet"}</strong></div></div></section>
       ${state.showForm || state.prefill ? tradeForm() : ""}
       <h2 class="section-title">Open trades (${open.length})</h2>
-      ${open.length ? `<div class="stock-grid">${open.map(vCard).join("")}</div>` : `<section class="card"><p class="muted">You have no open trades. When Stocks shows a stock in its buying range, log a practice trade there.</p></section>`}
+      ${open.length ? `<div class="stock-grid">${open.map(vCard).join("")}</div>` : `<section class="card"><p class="muted">You have no open trades. When Dip list shows a stock in its buying range, log a practice trade there.</p></section>`}
       <h2 class="section-title">Finished trades (${closed.length})</h2>
       ${closed.length ? `<section class="card"><div class="scroll"><table><thead><tr><th>Stock</th><th>Buy</th><th>Sell</th><th>Shares</th><th>Result</th></tr></thead><tbody>${closed.map((t) => { const n = netOf(t); return `<tr><td>${esc(t.symbol)}<div class="faint">${esc(modeName(t.mode))}, ${esc(t.sellDate)}</div></td><td>${px(t.buyPrice)}</td><td>${px(t.sellPrice)}</td><td>${t.qty}</td><td class="${cls(n)}">${signed(n)}</td></tr>`; }).join("")}</tbody></table></div>
         <details><summary>Full totals</summary><div><div class="scroll"><table><thead><tr><th>Account</th><th>Trades</th><th>Wins</th><th>Result</th><th>Charges</th></tr></thead><tbody>${row("Practice", p)}${row("Real money", rl)}</tbody></table></div></div></details></section>` : `<section class="card"><p class="muted">Finished trades and their results after charges will appear here.</p></section>`}`;
@@ -275,7 +393,7 @@
     const words = [["Stop-loss", "The price where you sell to limit a loss. Decide it before buying, and never move it lower."], ["Target", "The price where you plan to sell for a profit."], ["Buying range", "The price area where the rules allow a buy."], ["Practice trade", "A pretend trade recorded in this app. No real money or shares are involved."], ["Delivery (CNC)", "You buy shares with your own money and keep them for days or weeks. Choose this on Groww."], ["NIFTY 50", "An index of 50 large Indian companies, often used to judge the whole market."], ["RSI", "A 0–100 measure of how fast a price has moved. Above 70 can mean it rose too quickly."], ["Market fear (VIX)", "India's volatility index. Higher means traders expect bigger price swings."], ["Charges", "Brokerage, taxes and fees. The app includes them in its profit and loss estimates."]];
     return `<section class="card"><h1>How it works</h1><p class="muted">A simple evening checklist that takes about two minutes.</p>
       <ol class="steps"><li><div><strong>After 7:00 PM, open Home</strong><div class="muted">The big message tells you what to do. Often it's nothing, and that's fine.</div></div></li>
-      <li><div><strong>Check Stocks only when told</strong><div class="muted">If a stock is in its buying range, check its news and log a practice trade.</div></div></li>
+      <li><div><strong>Open Plan when told</strong><div class="muted">Split my money holds several companies with one review a month. Dip list is for single trades with a stop-loss.</div></div></li>
       <li><div><strong>Follow the label in My trades</strong><div class="muted">Hold means do nothing. Target reached or Exit now means record the sale.</div></div></li>
       <li><div><strong>Save a backup</strong><div class="muted">After any change, go to My money and copy your backup into your notes.</div></div></li></ol></section>
     <div class="two-col"><section class="card"><h2>What the app can't do</h2><ul class="muted" style="margin:0;padding-left:18px;display:grid;gap:6px"><li>Promise profit or 100% certainty</li><li>Show live prices or send alerts</li><li>Read news or company results</li><li>Buy or sell shares for you</li></ul></section>
@@ -289,7 +407,7 @@
   function render() {
     $("nav").innerHTML = TABS.map(([id, name, ic]) => `<button data-tab="${id}" ${state.tab === id ? 'aria-current="page"' : ""}>${icon(ic)}<span>${name}</span></button>`).join("");
     $("stamp").textContent = state.report ? "Updated for " + niceDate(state.report.asOf) : state.loaded ? "No report yet" : "Loading…";
-    if (state.loaded) $("app").innerHTML = { home: vHome, stocks: vStocks, trades: vTrades, money: vMoney, help: vHelp }[state.tab]();
+    if (state.loaded) $("app").innerHTML = { home: vHome, stocks: vPlan, trades: vTrades, money: vMoney, help: vHelp }[state.tab]();
   }
   function setTab(t) {
     t = OLD_TABS[t] || t;
@@ -301,11 +419,34 @@
   }
   function commit() { save(); state.error = ""; render(); }
 
+  function readPlanAmt() {
+    const el = $("planAmt");
+    if (el) { const v = num(el.value); state.planAmt = v == null ? null : Math.floor(v); }
+  }
+  document.addEventListener("change", (ev) => { if (ev.target && ev.target.id === "planAmt") { readPlanAmt(); state.error = ""; render(); } });
+
   document.addEventListener("click", (ev) => {
     const b = ev.target.closest("button"); if (!b) return;
     if (b.id === "themeBtn") { state.data.theme = resolvedTheme() === "dark" ? "light" : "dark"; save(); applyTheme(); return; }
     const d = b.dataset;
     state.backupError = "";
+    if (!d.planstop) state.stopArm = false;
+    if (d.planview) { state.planView = d.planview; state.error = ""; return render(); }
+    if (d.plann) { readPlanAmt(); state.planN = +d.plann; return render(); }
+    if (d.planstart) {
+      readPlanAmt();
+      const max = Math.max(0, Math.floor(account("paper").cash)), amt = state.planAmt == null ? max : state.planAmt;
+      if (!(amt > 0)) { state.error = "Enter an amount above zero."; return render(); }
+      if (amt > max) { state.error = `You have ${inr(max)} of practice money available.`; return render(); }
+      state.data.basket = { n: state.planN, startValue: amt, cash: amt, holdings: [], sold: [], startedOn: today(), lastReview: monthOf(state.report.asOf), firstBuyDate: null, startNifty: null };
+      state.planAmt = null; return commit();
+    }
+    if (d.planreview) { applyReview(); window.scrollTo(0, 0); return commit(); }
+    if (d.planadd) { const x = Math.floor(account("paper").cash); if (x > 0) { state.data.basket.cash += x; state.data.basket.startValue += x; } return commit(); }
+    if (d.planstop) {
+      if (!state.stopArm) { state.stopArm = true; return render(); }
+      state.stopArm = false; state.data.basketRealized = (state.data.basketRealized || 0) + basketResult(state.data.basket).gain; state.data.basket = null; return commit();
+    }
     if (d.tab) return setTab(d.tab);
     if (d.dismiss) { state.data.guideSeen = true; return commit(); }
     if (d.risk) { state.data.riskLevel = d.risk; return commit(); }

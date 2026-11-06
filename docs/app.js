@@ -230,7 +230,7 @@
       <h1>${esc(pv.title)}</h1><p>${esc(pv.why)}</p><div class="do">${esc(pv.todo)}</div>
     </section>
     ${state.data.basket || due ? "" : `<section class="card"><div class="row"><div><h2>Want to split your money?</h2><p class="muted">Practise holding several companies, with one check a month.</p></div><button class="primary" data-tab="stocks">See the plan</button></div></section>`}
-    ${state.data.guideSeen ? "" : `<section class="card"><div class="row"><div><h2>New here?</h2><p class="muted">See how this works in one minute.</p></div><div class="btns"><button class="primary" data-tab="help">Show me</button><button data-dismiss="1">Not now</button></div></div></section>`}
+    ${state.data.guideSeen ? "" : `<section class="card"><div class="row"><div><h2>New here?</h2><p class="muted">Watch the short step-by-step video.</p></div><div class="btns"><button class="primary" data-tab="help">Show me</button><button data-dismiss="1">Not now</button></div></div></section>`}
     ${days > 4 ? `<div class="notice warn">This report is ${days} days old, so don't rely on its prices.</div>` : ""}
     ${state.offline ? `<div class="notice warn">You're offline, so this is the last saved report.</div>` : ""}
     ${alerts.length ? `<section class="card"><h2>Your trades need attention</h2>${alerts.map(([t, s]) => `<div class="row"><strong>${esc(t.symbol)}</strong><span class="pill ${s.tone}">${esc(s.label)}</span></div><p class="muted">${esc(s.todo)}</p>`).join("")}<button data-tab="trades">Open my trades</button></section>` : ""}
@@ -391,7 +391,10 @@
   }
   function vHelp() {
     const words = [["Stop-loss", "The price where you sell to limit a loss. Decide it before buying, and never move it lower."], ["Target", "The price where you plan to sell for a profit."], ["Buying range", "The price area where the rules allow a buy."], ["Practice trade", "A pretend trade recorded in this app. No real money or shares are involved."], ["Delivery (CNC)", "You buy shares with your own money and keep them for days or weeks. Choose this on Groww."], ["NIFTY 50", "An index of 50 large Indian companies, often used to judge the whole market."], ["RSI", "A 0–100 measure of how fast a price has moved. Above 70 can mean it rose too quickly."], ["Market fear (VIX)", "India's volatility index. Higher means traders expect bigger price swings."], ["Charges", "Brokerage, taxes and fees. The app includes them in its profit and loss estimates."]];
-    return `<section class="card"><h1>How it works</h1><p class="muted">A simple evening checklist that takes about two minutes.</p>
+    return `<section class="card"><h1>Watch the guide</h1>
+      <video id="guideVideo" controls playsinline preload="metadata" poster="guide-poster.jpg" aria-label="Step-by-step guide to using Delivery Desk"><source src="guide.mp4" type="video/mp4">Your browser can't play this video. The written steps below cover the same things.</video>
+      <p class="faint">About 1 minute 45 seconds, with on-screen captions and no sound. Its numbers are examples, so yours will differ.</p></section>
+    <section class="card"><h2>How it works</h2><p class="muted">A simple evening checklist that takes about two minutes.</p>
       <ol class="steps"><li><div><strong>After 7:00 PM, open Home</strong><div class="muted">The big message tells you what to do. Often it's nothing, and that's fine.</div></div></li>
       <li><div><strong>Open Plan when told</strong><div class="muted">Split my money holds several companies with one review a month. Dip list is for single trades with a stop-loss.</div></div></li>
       <li><div><strong>Follow the label in My trades</strong><div class="muted">Hold means do nothing. Target reached or Exit now means record the sale.</div></div></li>

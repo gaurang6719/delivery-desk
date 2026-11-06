@@ -1,5 +1,5 @@
 // Keeps the app and the last report available offline. Always tries the network first.
-const CACHE = "delivery-desk-v3";
+const CACHE = "delivery-desk-v4";
 const SHELL = ["./", "./index.html", "./app.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (e) => e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())));
@@ -9,6 +9,7 @@ self.addEventListener("activate", (e) => e.waitUntil(
 self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
   const url = new URL(e.request.url);
+  if (url.pathname.endsWith(".mp4")) return; // Let the browser stream the video directly.
   const key = url.origin + url.pathname;
   e.respondWith(fetch(e.request).then((res) => {
     if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(key, copy)); }

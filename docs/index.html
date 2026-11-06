@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Delivery Desk</title>
+<meta name="theme-color" content="#0b5c7a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#eef1f4;--panel:#fbfcfd;--ink:#14212e;--muted:#566575;--line:#d3dae1;--accent:#0b5c7a;--accent-ink:#fff;--good:#0f6b47;--good-bg:#dff1e8;--warn:#8a5a00;--warn-bg:#f8ecd0;--bad:#a4282c;--bad-bg:#f9e2e1;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1720;--panel:#17222d;--ink:#e6edf3;--muted:#9fb0bf;--line:#2c3a47;--accent:#6cc0de;--accent-ink:#06222e;--good:#6fd3a5;--good-bg:#12352a;--warn:#e9bf6b;--warn-bg:#3b2d10;--bad:#f29a9a;--bad-bg:#431d1f;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+main{max-width:640px;margin:0 auto;padding-block:calc(16px + env(safe-area-inset-top,0px)) calc(92px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+h1,h2{line-height:1.2;margin:0;text-wrap:balance}h1{font-size:1.6rem}h2{font-size:1.1rem}p{margin:0}
+.stack{display:grid;gap:10px;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:10px;min-width:0}
+.muted{color:var(--muted);font-size:.875rem}
+.verdict{font-size:2.2rem;font-weight:700;line-height:1.05}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.78rem;font-weight:600;background:var(--line);color:var(--ink)}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+dl{margin:0}.kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px}.kv dt{color:var(--muted);font-size:.875rem}.kv dd{margin:0;text-align:right;font-family:var(--mono);font-size:.875rem}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.84rem}
+th{font-weight:500;color:var(--muted);text-align:right;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;font-family:var(--body);white-space:normal;min-width:120px}
+tr.hl td{font-weight:600;color:var(--good)}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+button{font:600 .9rem var(--body);min-height:44px;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+button.primary,button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}.btns.fill>*{flex:1 1 120px}
+label{display:grid;gap:4px;font-size:.84rem;color:var(--muted);min-width:0}
+input,select,textarea{font:16px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px;width:100%;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.notice{padding:10px 12px;border-radius:6px;font-size:.9rem}
+.notice.warn{background:var(--warn-bg);color:var(--warn)}.notice.bad{background:var(--bad-bg);color:var(--bad)}.notice.good{background:var(--good-bg);color:var(--good)}
+ul{margin:0;padding-left:18px;display:grid;gap:4px}a{color:var(--accent)}
+details summary{cursor:pointer;font-weight:600;min-height:32px}details>div{margin-top:8px;display:grid;gap:8px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav button{border:0;border-radius:0;background:none;min-height:56px;padding:6px 2px;font-size:.85rem;color:var(--muted)}
+nav button[aria-current="page"]{color:var(--accent);box-shadow:inset 0 2px 0 var(--accent)}
+</style>
+</head>
+<body>
+<main id="app"><div class="panel"><h1>Delivery Desk</h1><p class="muted">Loading the latest report…</p></div></main>
+<nav id="nav" aria-label="Sections"></nav>
+<script src="app.js"></script>
+</body>
+</html>

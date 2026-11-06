@@ -1,0 +1,12 @@
+{
+  "summary": "Neither set of trading rules made money after charges at any capital size tested. Holding the NIFTY did better over the same period, though it also fell hard at its worst.",
+  "rows": [
+    {"label": "Breakout rules", "start": 15000, "end": 8160, "dd": 57.2},
+    {"label": "Pullback rules, no market filter", "start": 15000, "end": 2725, "dd": 82.9},
+    {"label": "Pullback rules, market filter", "start": 15000, "end": 6844, "dd": 54.8},
+    {"label": "Pullback rules, market filter", "start": 50000, "end": 34807, "dd": 32.1},
+    {"label": "Pullback rules, market filter", "start": 100000, "end": 75989, "dd": 26.3},
+    {"label": "Hold the NIFTY 50", "start": 15000, "end": 38327, "dd": 38.4, "highlight": true}
+  ],
+  "note": "Aug 2017 to Nov 2026, one trade at a time, with Groww charges and 0.1% slippage each way. Stocks are today's NIFTY 100, which flatters the trading rules. The NIFTY line is price only, excludes dividends and fund costs, and is past performance rather than a promise."
+}

@@ -1,0 +1,33 @@
+name: Daily report
+
+on:
+  schedule:
+    # 13:30 UTC is 7:00 PM IST, Monday to Friday. GitHub may start it a little late.
+    - cron: "30 13 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild even if this trading day already has a report"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build report
+        run: python scripts/build_report.py ${{ inputs.force && '--force' || '' }}
+      - name: Save report
+        run: |
+          git config user.name "delivery-desk-bot"
+          git config user.email "delivery-desk-bot@users.noreply.github.com"
+          git add docs/report.json docs/prices.json
+          git diff --cached --quiet || { git commit -m "Report for $(date -u +%F)"; git push; }

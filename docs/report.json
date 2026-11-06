@@ -1,0 +1,971 @@
+{
+ "asOf": "2026-11-06",
+ "generatedAt": "2026-11-06T22:51+05:30",
+ "verdict": "NO TRADE",
+ "verdictTone": "warn",
+ "summary": "The market check scored 4 of 10 (NIFTY RSI 78.6), so new entries should wait.",
+ "classification": "Bullish, overextended",
+ "market": [
+  {
+   "name": "NIFTY 50",
+   "close": 25030.35,
+   "d1": 2.01,
+   "d5": 8.58,
+   "rsi": 78.6,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY 500",
+   "close": 23456.95,
+   "d1": 1.0,
+   "d5": 7.13,
+   "rsi": 71.7,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "BANK NIFTY",
+   "close": 59086.0,
+   "d1": 2.27,
+   "d5": 8.04,
+   "rsi": 74.6,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "India VIX",
+   "close": 17.47,
+   "d1": 12.1,
+   "d5": 14.15,
+   "rsi": 64.6,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY IT",
+   "close": 32977.9,
+   "d1": 0.43,
+   "d5": 1.14,
+   "rsi": 66.6,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY Auto",
+   "close": 27811.8,
+   "d1": 0.76,
+   "d5": 9.4,
+   "rsi": 70.2,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY Pharma",
+   "close": 27940.4,
+   "d1": 1.21,
+   "d5": 3.01,
+   "rsi": 73.6,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY Metal",
+   "close": 12678.15,
+   "d1": 0.66,
+   "d5": 7.58,
+   "rsi": 61.1,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY FMCG",
+   "close": 46785.6,
+   "d1": 0.67,
+   "d5": 7.28,
+   "rsi": 65.0,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "NIFTY Energy",
+   "close": 36867.3,
+   "d1": -0.05,
+   "d5": 5.46,
+   "rsi": 56.9,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "S&P 500",
+   "close": 7408.16,
+   "d1": 0.74,
+   "d5": -2.27,
+   "rsi": 37.2,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "Brent crude",
+   "close": 97.41,
+   "d1": -0.9,
+   "d5": -17.2,
+   "rsi": 38.4,
+   "date": "2026-11-06"
+  },
+  {
+   "name": "USD/INR",
+   "close": 93.89,
+   "d1": -0.66,
+   "d5": -1.32,
+   "rsi": 31.7,
+   "date": "2026-11-06"
+  }
+ ],
+ "notes": [
+  "90 of 99 NIFTY 100 stocks scanned are above EMA 20, and 20 have an RSI above 70.",
+  "NIFTY is 7.0% from its EMA 20."
+ ],
+ "candidates": [
+  {
+   "symbol": "PNB",
+   "name": "Punjab National Bank",
+   "sector": "Financial Services",
+   "score": 55,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     20,
+     20
+    ],
+    "Volume and delivery": [
+     6,
+     10
+    ],
+    "Sector and strength": [
+     0,
+     10
+    ],
+    "Support and resistance": [
+     10,
+     10
+    ],
+    "Net risk/reward": [
+     15,
+     15
+    ],
+    "Market": [
+     4,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 126.55,
+   "vwap": 125.9,
+   "rsi": 65.6,
+   "volRatio": 0.97,
+   "delivery": 48.03,
+   "rs20": -2.8,
+   "ema20": 121.2,
+   "ema50": 118.1,
+   "ema200": 114.2,
+   "entryLow": 120.55,
+   "entryHigh": 122.35,
+   "entry": 121.45,
+   "stop": 117.4,
+   "t1": 135.15,
+   "t2": 139.25,
+   "inZone": false,
+   "supportLevels": [
+    118.2,
+    115.0
+   ],
+   "resistanceLevels": [
+    135.1
+   ]
+  },
+  {
+   "symbol": "HCLTECH",
+   "name": "HCL Technologies Ltd.",
+   "sector": "Information Technology",
+   "score": 54,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     15,
+     20
+    ],
+    "Volume and delivery": [
+     8,
+     10
+    ],
+    "Sector and strength": [
+     10,
+     10
+    ],
+    "Support and resistance": [
+     10,
+     10
+    ],
+    "Net risk/reward": [
+     7,
+     15
+    ],
+    "Market": [
+     4,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 1440.0,
+   "vwap": 1444.1,
+   "rsi": 66.5,
+   "volRatio": 0.86,
+   "delivery": 52.29,
+   "rs20": 9.8,
+   "ema20": 1385.2,
+   "ema50": 1332.8,
+   "ema200": 1342.0,
+   "entryLow": 1378.25,
+   "entryHigh": 1399.05,
+   "entry": 1388.65,
+   "stop": 1317.95,
+   "t1": 1467.5,
+   "t2": 1530.05,
+   "inZone": false,
+   "supportLevels": [
+    1364.0,
+    1328.0
+   ],
+   "resistanceLevels": [
+    1467.5,
+    1780.1
+   ]
+  },
+  {
+   "symbol": "JSWSTEEL",
+   "name": "JSW Steel Ltd.",
+   "sector": "Metals & Mining",
+   "score": 51,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     20,
+     20
+    ],
+    "Volume and delivery": [
+     10,
+     10
+    ],
+    "Sector and strength": [
+     5,
+     10
+    ],
+    "Support and resistance": [
+     5,
+     10
+    ],
+    "Net risk/reward": [
+     7,
+     15
+    ],
+    "Market": [
+     4,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 1357.1,
+   "vwap": 1344.33,
+   "rsi": 68.0,
+   "volRatio": 1.35,
+   "delivery": 56.2,
+   "rs20": 2.9,
+   "ema20": 1275.2,
+   "ema50": 1263.9,
+   "ema200": 1234.9,
+   "entryLow": 1268.8,
+   "entryHigh": 1287.9,
+   "entry": 1278.35,
+   "stop": 1241.3,
+   "t1": 1335.0,
+   "t2": 1352.5,
+   "inZone": false,
+   "supportLevels": [
+    1250.4,
+    1228.1
+   ],
+   "resistanceLevels": [
+    1335.0,
+    1335.0
+   ]
+  },
+  {
+   "symbol": "ETERNAL",
+   "name": "Eternal Ltd.",
+   "sector": "Consumer Services",
+   "score": 49,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     20,
+     20
+    ],
+    "Volume and delivery": [
+     6,
+     10
+    ],
+    "Sector and strength": [
+     5,
+     10
+    ],
+    "Support and resistance": [
+     5,
+     10
+    ],
+    "Net risk/reward": [
+     9,
+     15
+    ],
+    "Market": [
+     4,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 363.15,
+   "vwap": 358.36,
+   "rsi": 69.1,
+   "volRatio": 0.92,
+   "delivery": 49.43,
+   "rs20": 1.2,
+   "ema20": 336.4,
+   "ema50": 326.3,
+   "ema200": 297.1,
+   "entryLow": 334.65,
+   "entryHigh": 339.7,
+   "entry": 337.2,
+   "stop": 312.95,
+   "t1": 363.15,
+   "t2": 385.7,
+   "inZone": false,
+   "supportLevels": [
+    315.8,
+    310.8
+   ],
+   "resistanceLevels": [
+    363.1
+   ]
+  },
+  {
+   "symbol": "TATACONSUM",
+   "name": "Tata Consumer Products Ltd.",
+   "sector": "Fast Moving Consumer Goods",
+   "score": 47,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     20,
+     20
+    ],
+    "Volume and delivery": [
+     5,
+     10
+    ],
+    "Sector and strength": [
+     5,
+     10
+    ],
+    "Support and resistance": [
+     5,
+     10
+    ],
+    "Net risk/reward": [
+     8,
+     15
+    ],
+    "Market": [
+     4,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 1086.3,
+   "vwap": 1079.79,
+   "rsi": 71.1,
+   "volRatio": 0.72,
+   "delivery": 62.56,
+   "rs20": 1.5,
+   "ema20": 1017.8,
+   "ema50": 1014.0,
+   "ema200": 1068.3,
+   "entryLow": 1012.7,
+   "entryHigh": 1027.95,
+   "entry": 1020.3,
+   "stop": 978.8,
+   "t1": 1063.5,
+   "t2": 1103.4,
+   "inZone": false,
+   "supportLevels": [
+    986.0,
+    945.0
+   ],
+   "resistanceLevels": [
+    1063.5,
+    1109.8
+   ]
+  }
+ ],
+ "chargeSchedule": {
+  "checked": "2026-11-06",
+  "pct": 0.001,
+  "min": 5,
+  "max": 20,
+  "stt": 0.001,
+  "exch": 2.97e-05,
+  "sebi": 1e-06,
+  "stamp": 0.00015,
+  "dp": 20,
+  "dpSmall": 3.5,
+  "gst": 0.18
+ },
+ "universe": [
+  [
+   "ABB",
+   "ABB India Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "ADANIENSOL",
+   "Adani Energy Solutions Ltd.",
+   "Power"
+  ],
+  [
+   "ADANIENT",
+   "Adani Enterprises Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "ADANIGREEN",
+   "Adani Green Energy Ltd.",
+   "Power"
+  ],
+  [
+   "ADANIPORTS",
+   "Adani Ports and Special Economic Zone Ltd.",
+   "Services"
+  ],
+  [
+   "ADANIPOWER",
+   "Adani Power Ltd.",
+   "Power"
+  ],
+  [
+   "AMBUJACEM",
+   "Ambuja Cements Ltd.",
+   "Construction Materials"
+  ],
+  [
+   "APOLLOHOSP",
+   "Apollo Hospitals Enterprise Ltd.",
+   "Healthcare"
+  ],
+  [
+   "ASIANPAINT",
+   "Asian Paints Ltd.",
+   "Consumer Durables"
+  ],
+  [
+   "DMART",
+   "Avenue Supermarts Ltd.",
+   "Consumer Services"
+  ],
+  [
+   "AXISBANK",
+   "Axis Bank Ltd.",
+   "Financial Services"
+  ],
+  [
+   "BSE",
+   "BSE Ltd.",
+   "Financial Services"
+  ],
+  [
+   "BAJAJ-AUTO",
+   "Bajaj Auto Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "BAJFINANCE",
+   "Bajaj Finance Ltd.",
+   "Financial Services"
+  ],
+  [
+   "BAJAJFINSV",
+   "Bajaj Finserv Ltd.",
+   "Financial Services"
+  ],
+  [
+   "BAJAJHLDNG",
+   "Bajaj Holdings & Investment Ltd.",
+   "Financial Services"
+  ],
+  [
+   "BANKBARODA",
+   "Bank of Baroda",
+   "Financial Services"
+  ],
+  [
+   "BEL",
+   "Bharat Electronics Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "BPCL",
+   "Bharat Petroleum Corporation Ltd.",
+   "Oil Gas & Consumable Fuels"
+  ],
+  [
+   "BHARTIARTL",
+   "Bharti Airtel Ltd.",
+   "Telecommunication"
+  ],
+  [
+   "BOSCHLTD",
+   "Bosch Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "BRITANNIA",
+   "Britannia Industries Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "CGPOWER",
+   "CG Power and Industrial Solutions Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "CANBK",
+   "Canara Bank",
+   "Financial Services"
+  ],
+  [
+   "CHOLAFIN",
+   "Cholamandalam Investment and Finance Company Ltd.",
+   "Financial Services"
+  ],
+  [
+   "CIPLA",
+   "Cipla Ltd.",
+   "Healthcare"
+  ],
+  [
+   "COALINDIA",
+   "Coal India Ltd.",
+   "Oil Gas & Consumable Fuels"
+  ],
+  [
+   "CUMMINSIND",
+   "Cummins India Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "DLF",
+   "DLF Ltd.",
+   "Realty"
+  ],
+  [
+   "DIVISLAB",
+   "Divi's Laboratories Ltd.",
+   "Healthcare"
+  ],
+  [
+   "DRREDDY",
+   "Dr. Reddy's Laboratories Ltd.",
+   "Healthcare"
+  ],
+  [
+   "EICHERMOT",
+   "Eicher Motors Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "ETERNAL",
+   "Eternal Ltd.",
+   "Consumer Services"
+  ],
+  [
+   "GAIL",
+   "GAIL (India) Ltd.",
+   "Oil Gas & Consumable Fuels"
+  ],
+  [
+   "GODREJCP",
+   "Godrej Consumer Products Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "GRASIM",
+   "Grasim Industries Ltd.",
+   "Construction Materials"
+  ],
+  [
+   "HCLTECH",
+   "HCL Technologies Ltd.",
+   "Information Technology"
+  ],
+  [
+   "HDFCAMC",
+   "HDFC Asset Management Company Ltd.",
+   "Financial Services"
+  ],
+  [
+   "HDFCBANK",
+   "HDFC Bank Ltd.",
+   "Financial Services"
+  ],
+  [
+   "HDFCLIFE",
+   "HDFC Life Insurance Company Ltd.",
+   "Financial Services"
+  ],
+  [
+   "HINDALCO",
+   "Hindalco Industries Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "HAL",
+   "Hindustan Aeronautics Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "HINDUNILVR",
+   "Hindustan Unilever Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "HINDZINC",
+   "Hindustan Zinc Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "POWERINDIA",
+   "Hitachi Energy India Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "HYUNDAI",
+   "Hyundai Motor India Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "ICICIBANK",
+   "ICICI Bank Ltd.",
+   "Financial Services"
+  ],
+  [
+   "ITC",
+   "ITC Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "IOC",
+   "Indian Oil Corporation Ltd.",
+   "Oil Gas & Consumable Fuels"
+  ],
+  [
+   "IRFC",
+   "Indian Railway Finance Corporation Ltd.",
+   "Financial Services"
+  ],
+  [
+   "INFY",
+   "Infosys Ltd.",
+   "Information Technology"
+  ],
+  [
+   "INDIGO",
+   "InterGlobe Aviation Ltd.",
+   "Services"
+  ],
+  [
+   "JSWSTEEL",
+   "JSW Steel Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "JINDALSTEL",
+   "Jindal Steel Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "JIOFIN",
+   "Jio Financial Services Ltd.",
+   "Financial Services"
+  ],
+  [
+   "KOTAKBANK",
+   "Kotak Mahindra Bank Ltd.",
+   "Financial Services"
+  ],
+  [
+   "LTM",
+   "LTM Ltd.",
+   "Information Technology"
+  ],
+  [
+   "LT",
+   "Larsen & Toubro Ltd.",
+   "Construction"
+  ],
+  [
+   "M&M",
+   "Mahindra & Mahindra Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "MARUTI",
+   "Maruti Suzuki India Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "MAXHEALTH",
+   "Max Healthcare Institute Ltd.",
+   "Healthcare"
+  ],
+  [
+   "MAZDOCK",
+   "Mazagoan Dock Shipbuilders Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "MUTHOOTFIN",
+   "Muthoot Finance Ltd.",
+   "Financial Services"
+  ],
+  [
+   "NTPC",
+   "NTPC Ltd.",
+   "Power"
+  ],
+  [
+   "NESTLEIND",
+   "Nestle India Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "ONGC",
+   "Oil & Natural Gas Corporation Ltd.",
+   "Oil Gas & Consumable Fuels"
+  ],
+  [
+   "PIDILITIND",
+   "Pidilite Industries Ltd.",
+   "Chemicals"
+  ],
+  [
+   "POLYCAB",
+   "Polycab India Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "PFC",
+   "Power Finance Corporation Ltd.",
+   "Financial Services"
+  ],
+  [
+   "POWERGRID",
+   "Power Grid Corporation of India Ltd.",
+   "Power"
+  ],
+  [
+   "PNB",
+   "Punjab National Bank",
+   "Financial Services"
+  ],
+  [
+   "RELIANCE",
+   "Reliance Industries Ltd.",
+   "Oil Gas & Consumable Fuels"
+  ],
+  [
+   "SBILIFE",
+   "SBI Life Insurance Company Ltd.",
+   "Financial Services"
+  ],
+  [
+   "MOTHERSON",
+   "Samvardhana Motherson International Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "SHRIRAMFIN",
+   "Shriram Finance Ltd.",
+   "Financial Services"
+  ],
+  [
+   "ENRIN",
+   "Siemens Energy India Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "SIEMENS",
+   "Siemens Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "SOLARINDS",
+   "Solar Industries India Ltd.",
+   "Chemicals"
+  ],
+  [
+   "SBIN",
+   "State Bank of India",
+   "Financial Services"
+  ],
+  [
+   "SUNPHARMA",
+   "Sun Pharmaceutical Industries Ltd.",
+   "Healthcare"
+  ],
+  [
+   "TVSMOTOR",
+   "TVS Motor Company Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "TATACAP",
+   "Tata Capital Ltd.",
+   "Financial Services"
+  ],
+  [
+   "TCS",
+   "Tata Consultancy Services Ltd.",
+   "Information Technology"
+  ],
+  [
+   "TATACONSUM",
+   "Tata Consumer Products Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "TMCV",
+   "Tata Motors Ltd.",
+   "Capital Goods"
+  ],
+  [
+   "TMPV",
+   "Tata Motors Passenger Vehicles Ltd.",
+   "Automobile and Auto Components"
+  ],
+  [
+   "TATAPOWER",
+   "Tata Power Co. Ltd.",
+   "Power"
+  ],
+  [
+   "TATASTEEL",
+   "Tata Steel Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "TECHM",
+   "Tech Mahindra Ltd.",
+   "Information Technology"
+  ],
+  [
+   "TITAN",
+   "Titan Company Ltd.",
+   "Consumer Durables"
+  ],
+  [
+   "TORNTPHARM",
+   "Torrent Pharmaceuticals Ltd.",
+   "Healthcare"
+  ],
+  [
+   "TRENT",
+   "Trent Ltd.",
+   "Consumer Services"
+  ],
+  [
+   "ULTRACEMCO",
+   "UltraTech Cement Ltd.",
+   "Construction Materials"
+  ],
+  [
+   "UNIONBANK",
+   "Union Bank of India",
+   "Financial Services"
+  ],
+  [
+   "VBL",
+   "Varun Beverages Ltd.",
+   "Fast Moving Consumer Goods"
+  ],
+  [
+   "VAML",
+   "Vedanta Aluminium Metal Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "VEDL",
+   "Vedanta Ltd.",
+   "Metals & Mining"
+  ],
+  [
+   "IDEA",
+   "Vodafone Idea Ltd.",
+   "Telecommunication"
+  ],
+  [
+   "WIPRO",
+   "Wipro Ltd.",
+   "Information Technology"
+  ],
+  [
+   "ZYDUSLIFE",
+   "Zydus Lifesciences Ltd.",
+   "Healthcare"
+  ]
+ ],
+ "validation": {
+  "sessionsTracked": 0,
+  "backtestEdge": false
+ },
+ "gaps": [],
+ "evidence": {
+  "summary": "Neither set of trading rules made money after charges at any capital size tested. Holding the NIFTY did better over the same period, though it also fell hard at its worst.",
+  "rows": [
+   {
+    "label": "Breakout rules",
+    "start": 15000,
+    "end": 8160,
+    "dd": 57.2
+   },
+   {
+    "label": "Pullback rules, no market filter",
+    "start": 15000,
+    "end": 2725,
+    "dd": 82.9
+   },
+   {
+    "label": "Pullback rules, market filter",
+    "start": 15000,
+    "end": 6844,
+    "dd": 54.8
+   },
+   {
+    "label": "Pullback rules, market filter",
+    "start": 50000,
+    "end": 34807,
+    "dd": 32.1
+   },
+   {
+    "label": "Pullback rules, market filter",
+    "start": 100000,
+    "end": 75989,
+    "dd": 26.3
+   },
+   {
+    "label": "Hold the NIFTY 50",
+    "start": 15000,
+    "end": 38327,
+    "dd": 38.4,
+    "highlight": true
+   }
+  ],
+  "note": "Aug 2017 to Nov 2026, one trade at a time, with Groww charges and 0.1% slippage each way. Stocks are today's NIFTY 100, which flatters the trading rules. The NIFTY line is price only, excludes dividends and fund costs, and is past performance rather than a promise."
+ }
+}

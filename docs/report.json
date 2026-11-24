@@ -1,126 +1,183 @@
 {
- "asOf": "2026-11-20",
- "generatedAt": "2026-11-24T06:34+05:30",
- "verdict": "NO TRADE",
+ "asOf": "2026-11-23",
+ "generatedAt": "2026-11-25T04:39+05:30",
+ "verdict": "WAIT",
  "verdictTone": "warn",
- "summary": "The market check scored 4 of 10 (NIFTY RSI 78.6), so new entries should wait.",
- "classification": "Bullish, overextended",
+ "summary": "No candidate is in its entry zone at a score worth acting on.",
+ "classification": "Moderately bullish",
  "market": [
   {
    "name": "NIFTY 50",
-   "close": 25800.6,
-   "d1": 1.12,
-   "d5": 2.61,
-   "rsi": 78.6,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY 500",
-   "close": 24088.8,
-   "d1": 0.8,
-   "d5": 1.49,
-   "rsi": 72.9,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "BANK NIFTY",
-   "close": 64635.2,
-   "d1": 2.49,
-   "d5": 5.9,
-   "rsi": 83.8,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "India VIX",
-   "close": 17.32,
-   "d1": 7.51,
-   "d5": 11.74,
-   "rsi": 61.0,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY IT",
-   "close": 31322.65,
-   "d1": 1.3,
-   "d5": -1.91,
-   "rsi": 48.5,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY Auto",
-   "close": 28787.65,
-   "d1": 0.65,
-   "d5": 3.07,
-   "rsi": 67.7,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY Pharma",
-   "close": 28386.9,
-   "d1": 0.05,
-   "d5": -0.52,
-   "rsi": 66.6,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY Metal",
-   "close": 12271.1,
-   "d1": -0.23,
-   "d5": -2.98,
-   "rsi": 47.2,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY FMCG",
-   "close": 48535.7,
-   "d1": -0.06,
-   "d5": 3.63,
-   "rsi": 71.3,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "NIFTY Energy",
-   "close": 37321.25,
-   "d1": -0.22,
-   "d5": -0.21,
-   "rsi": 58.0,
-   "date": "2026-11-20"
-  },
-  {
-   "name": "S&P 500",
-   "close": 7237.17,
-   "d1": 4.73,
-   "d5": -2.42,
-   "rsi": 41.3,
+   "close": 25349.65,
+   "d1": -1.75,
+   "d5": 0.23,
+   "rsi": 67.0,
    "date": "2026-11-23"
   },
   {
+   "name": "NIFTY 500",
+   "close": 23748.15,
+   "d1": -1.41,
+   "d5": -0.02,
+   "rsi": 63.3,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "BANK NIFTY",
+   "close": 62585.35,
+   "d1": -3.17,
+   "d5": 1.64,
+   "rsi": 67.7,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "India VIX",
+   "close": 17.7,
+   "d1": 2.19,
+   "d5": 12.88,
+   "rsi": 62.9,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "NIFTY IT",
+   "close": 31850.8,
+   "d1": 1.69,
+   "d5": -0.28,
+   "rsi": 54.0,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "NIFTY Auto",
+   "close": 28490.7,
+   "d1": -1.03,
+   "d5": 3.34,
+   "rsi": 63.8,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "NIFTY Pharma",
+   "close": 28288.85,
+   "d1": -0.35,
+   "d5": 0.68,
+   "rsi": 64.3,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "NIFTY Metal",
+   "close": 11819.25,
+   "d1": -3.68,
+   "d5": -5.13,
+   "rsi": 37.1,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "NIFTY FMCG",
+   "close": 48312.55,
+   "d1": -0.46,
+   "d5": 1.27,
+   "rsi": 68.5,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "NIFTY Energy",
+   "close": 36655.1,
+   "d1": -1.78,
+   "d5": -1.67,
+   "rsi": 48.9,
+   "date": "2026-11-23"
+  },
+  {
+   "name": "S&P 500",
+   "close": 7201.09,
+   "d1": -0.5,
+   "d5": -1.9,
+   "rsi": 40.3,
+   "date": "2026-11-24"
+  },
+  {
    "name": "Brent crude",
-   "close": 86.93,
-   "d1": -6.09,
-   "d5": -5.96,
-   "rsi": 31.4,
+   "close": 88.5,
+   "d1": -0.97,
+   "d5": -4.98,
+   "rsi": 32.9,
    "date": "2026-11-24"
   },
   {
    "name": "USD/INR",
-   "close": 92.67,
-   "d1": -0.67,
-   "d5": -1.66,
-   "rsi": 25.1,
-   "date": "2026-11-23"
+   "close": 92.9,
+   "d1": 0.24,
+   "d5": -1.13,
+   "rsi": 30.0,
+   "date": "2026-11-24"
   }
  ],
  "notes": [
-  "76 of 99 NIFTY 100 stocks scanned are above EMA 20, and 24 have an RSI above 70.",
-  "NIFTY is 5.0% from its EMA 20."
+  "71 of 99 NIFTY 100 stocks scanned are above EMA 20, and 8 have an RSI above 70.",
+  "NIFTY is 2.9% from its EMA 20."
  ],
  "candidates": [
+  {
+   "symbol": "HDFCBANK",
+   "name": "HDFC Bank Ltd.",
+   "sector": "Financial Services",
+   "score": 67,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     15,
+     20
+    ],
+    "Volume and delivery": [
+     10,
+     10
+    ],
+    "Sector and strength": [
+     10,
+     10
+    ],
+    "Support and resistance": [
+     10,
+     10
+    ],
+    "Net risk/reward": [
+     15,
+     15
+    ],
+    "Market": [
+     7,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 817.8,
+   "vwap": 831.29,
+   "rsi": 65.2,
+   "volRatio": 1.43,
+   "delivery": 57.53,
+   "rs20": 5.9,
+   "ema20": 781.1,
+   "ema50": 751.6,
+   "ema200": 784.7,
+   "entryLow": 777.15,
+   "entryHigh": 788.85,
+   "entry": 783.0,
+   "stop": 726.45,
+   "t1": 1017.5,
+   "t2": 1074.05,
+   "inZone": false,
+   "supportLevels": [
+    732.0,
+    722.0
+   ],
+   "resistanceLevels": [
+    1017.5
+   ]
+  },
   {
    "symbol": "ADANIENSOL",
    "name": "Adani Energy Solutions Ltd.",
    "sector": "Power",
-   "score": 57,
+   "score": 60,
    "scoreOf": 75,
    "parts": {
     "Trend": [
@@ -144,26 +201,26 @@
      15
     ],
     "Market": [
-     4,
+     7,
      10
     ]
    },
    "recommendation": "WAIT FOR ENTRY",
-   "close": 1491.8,
-   "vwap": 1481.85,
-   "rsi": 63.2,
-   "volRatio": 1.03,
-   "delivery": 48.86,
-   "rs20": 1.4,
-   "ema20": 1422.8,
-   "ema50": 1408.0,
-   "ema200": 1337.8,
-   "entryLow": 1415.7,
-   "entryHigh": 1437.05,
-   "entry": 1426.4,
-   "stop": 1337.25,
+   "close": 1470.0,
+   "vwap": 1482.97,
+   "rsi": 59.0,
+   "volRatio": 1.99,
+   "delivery": 42.58,
+   "rs20": 8.3,
+   "ema20": 1427.3,
+   "ema50": 1410.5,
+   "ema200": 1339.1,
+   "entryLow": 1420.2,
+   "entryHigh": 1441.6,
+   "entry": 1430.9,
+   "stop": 1336.8,
    "t1": 1637.0,
-   "t2": 1726.1,
+   "t2": 1731.1,
    "inZone": false,
    "supportLevels": [
     1405.6,
@@ -175,75 +232,18 @@
    ]
   },
   {
-   "symbol": "ITC",
-   "name": "ITC Ltd.",
-   "sector": "Fast Moving Consumer Goods",
-   "score": 52,
-   "scoreOf": 75,
-   "parts": {
-    "Trend": [
-     15,
-     20
-    ],
-    "Volume and delivery": [
-     8,
-     10
-    ],
-    "Sector and strength": [
-     5,
-     10
-    ],
-    "Support and resistance": [
-     5,
-     10
-    ],
-    "Net risk/reward": [
-     15,
-     15
-    ],
-    "Market": [
-     4,
-     10
-    ]
-   },
-   "recommendation": "WAIT FOR ENTRY",
-   "close": 299.1,
-   "vwap": 297.97,
-   "rsi": 71.9,
-   "volRatio": 1.3,
-   "delivery": 45.4,
-   "rs20": 1.8,
-   "ema20": 282.7,
-   "ema50": 275.1,
-   "ema200": 296.9,
-   "entryLow": 281.3,
-   "entryHigh": 285.55,
-   "entry": 283.4,
-   "stop": 263.2,
-   "t1": 412.0,
-   "t2": 432.2,
-   "inZone": false,
-   "supportLevels": [
-    280.0,
-    265.0
-   ],
-   "resistanceLevels": [
-    412.0
-   ]
-  },
-  {
-   "symbol": "IOC",
-   "name": "Indian Oil Corporation Ltd.",
+   "symbol": "RELIANCE",
+   "name": "Reliance Industries Ltd.",
    "sector": "Oil Gas & Consumable Fuels",
-   "score": 52,
+   "score": 57,
    "scoreOf": 75,
    "parts": {
     "Trend": [
-     20,
+     15,
      20
     ],
     "Volume and delivery": [
-     10,
+     5,
      10
     ],
     "Sector and strength": [
@@ -251,107 +251,48 @@
      10
     ],
     "Support and resistance": [
-     5,
-     10
-    ],
-    "Net risk/reward": [
-     8,
-     15
-    ],
-    "Market": [
-     4,
-     10
-    ]
-   },
-   "recommendation": "WAIT FOR ENTRY",
-   "close": 150.5,
-   "vwap": 148.33,
-   "rsi": 70.9,
-   "volRatio": 1.14,
-   "delivery": 52.48,
-   "rs20": 1.2,
-   "ema20": 141.8,
-   "ema50": 138.2,
-   "ema200": 141.7,
-   "entryLow": 141.1,
-   "entryHigh": 143.25,
-   "entry": 142.2,
-   "stop": 137.9,
-   "t1": 150.05,
-   "t2": 150.75,
-   "inZone": false,
-   "supportLevels": [
-    138.9,
-    136.8
-   ],
-   "resistanceLevels": [
-    150.1,
-    189.0
-   ]
-  },
-  {
-   "symbol": "PIDILITIND",
-   "name": "Pidilite Industries Ltd.",
-   "sector": "Chemicals",
-   "score": 52,
-   "scoreOf": 75,
-   "parts": {
-    "Trend": [
-     20,
-     20
-    ],
-    "Volume and delivery": [
-     10,
-     10
-    ],
-    "Sector and strength": [
-     0,
-     10
-    ],
-    "Support and resistance": [
      10,
      10
     ],
     "Net risk/reward": [
-     8,
+     15,
      15
     ],
     "Market": [
-     4,
+     7,
      10
     ]
    },
    "recommendation": "WAIT FOR ENTRY",
-   "close": 1620.0,
-   "vwap": 1601.98,
-   "rsi": 64.4,
-   "volRatio": 1.25,
-   "delivery": 61.55,
-   "rs20": -4.4,
-   "ema20": 1538.8,
-   "ema50": 1535.2,
-   "ema200": 1523.7,
-   "entryLow": 1531.05,
-   "entryHigh": 1554.15,
-   "entry": 1542.6,
-   "stop": 1447.05,
-   "t1": 1686.4,
-   "t2": 1733.7,
+   "close": 1351.0,
+   "vwap": 1360.65,
+   "rsi": 64.9,
+   "volRatio": 0.73,
+   "delivery": 53.91,
+   "rs20": 1.4,
+   "ema20": 1312.7,
+   "ema50": 1277.7,
+   "ema200": 1312.7,
+   "entryLow": 1306.15,
+   "entryHigh": 1325.85,
+   "entry": 1316.0,
+   "stop": 1264.55,
+   "t1": 1611.8,
+   "t2": 1663.2,
    "inZone": false,
    "supportLevels": [
-    1521.1,
-    1456.8
+    1298.1,
+    1271.0
    ],
    "resistanceLevels": [
-    1686.4,
-    1687.7
+    1611.8
    ]
   },
   {
    "symbol": "MOTHERSON",
    "name": "Samvardhana Motherson International Ltd.",
    "sector": "Automobile and Auto Components",
-   "score": 51,
+   "score": 54,
    "scoreOf": 75,
    "parts": {
     "Trend": [
@@ -359,11 +300,11 @@
      20
     ],
     "Volume and delivery": [
-     8,
+     3,
      10
     ],
     "Sector and strength": [
-     0,
+     5,
      10
     ],
     "Support and resistance": [
@@ -375,34 +316,92 @@
      15
     ],
     "Market": [
-     4,
+     7,
      10
     ]
    },
    "recommendation": "WAIT FOR ENTRY",
-   "close": 166.53,
-   "vwap": 165.15,
-   "rsi": 55.3,
-   "volRatio": 0.92,
-   "delivery": 52.0,
-   "rs20": -6.0,
-   "ema20": 162.2,
-   "ema50": 160.5,
-   "ema200": 145.3,
-   "entryLow": 161.4,
-   "entryHigh": 163.8,
-   "entry": 162.6,
+   "close": 165.76,
+   "vwap": 165.51,
+   "rsi": 54.4,
+   "volRatio": 0.56,
+   "delivery": 49.92,
+   "rs20": -2.9,
+   "ema20": 162.5,
+   "ema50": 160.7,
+   "ema200": 145.5,
+   "entryLow": 161.7,
+   "entryHigh": 164.15,
+   "entry": 162.95,
    "stop": 154.75,
-   "t1": 170.7,
-   "t2": 178.3,
+   "t1": 172.0,
+   "t2": 179.3,
    "inZone": false,
    "supportLevels": [
     159.9,
     156.4
    ],
    "resistanceLevels": [
-    170.7,
-    172.0
+    172.0,
+    173.3
+   ]
+  },
+  {
+   "symbol": "LT",
+   "name": "Larsen & Toubro Ltd.",
+   "sector": "Construction",
+   "score": 52,
+   "scoreOf": 75,
+   "parts": {
+    "Trend": [
+     15,
+     20
+    ],
+    "Volume and delivery": [
+     3,
+     10
+    ],
+    "Sector and strength": [
+     10,
+     10
+    ],
+    "Support and resistance": [
+     10,
+     10
+    ],
+    "Net risk/reward": [
+     7,
+     15
+    ],
+    "Market": [
+     7,
+     10
+    ]
+   },
+   "recommendation": "WAIT FOR ENTRY",
+   "close": 4099.9,
+   "vwap": 4151.8,
+   "rsi": 59.1,
+   "volRatio": 0.54,
+   "delivery": 47.47,
+   "rs20": 0.3,
+   "ema20": 4047.1,
+   "ema50": 3948.6,
+   "ema200": 3915.5,
+   "entryLow": 4026.8,
+   "entryHigh": 4087.55,
+   "entry": 4057.15,
+   "stop": 3969.25,
+   "t1": 4213.8,
+   "t2": 4233.05,
+   "inZone": false,
+   "supportLevels": [
+    4024.8,
+    3990.0
+   ],
+   "resistanceLevels": [
+    4213.8,
+    4259.0
    ]
   }
  ],
@@ -413,141 +412,141 @@
     "symbol": "DIVISLAB",
     "name": "Divi's Laboratories Ltd.",
     "sector": "Healthcare",
-    "close": 11180.5,
-    "ret6m": 62.2
-   },
-   {
-    "symbol": "PNB",
-    "name": "Punjab National Bank",
-    "sector": "Financial Services",
-    "close": 155.33,
-    "ret6m": 52.0
+    "close": 11203.0,
+    "ret6m": 63.4
    },
    {
     "symbol": "ETERNAL",
     "name": "Eternal Ltd.",
     "sector": "Consumer Services",
-    "close": 364.0,
+    "close": 362.1,
     "ret6m": 49.6
    },
    {
-    "symbol": "UNIONBANK",
-    "name": "Union Bank of India",
+    "symbol": "PNB",
+    "name": "Punjab National Bank",
     "sector": "Financial Services",
-    "close": 218.85,
-    "ret6m": 37.6
-   },
-   {
-    "symbol": "TVSMOTOR",
-    "name": "TVS Motor Company Ltd.",
-    "sector": "Automobile and Auto Components",
-    "close": 4590.0,
-    "ret6m": 36.5
-   },
-   {
-    "symbol": "DLF",
-    "name": "DLF Ltd.",
-    "sector": "Realty",
-    "close": 785.0,
-    "ret6m": 34.6
-   },
-   {
-    "symbol": "KOTAKBANK",
-    "name": "Kotak Mahindra Bank Ltd.",
-    "sector": "Financial Services",
-    "close": 515.8,
-    "ret6m": 34.6
+    "close": 149.75,
+    "ret6m": 46.9
    },
    {
     "symbol": "BOSCHLTD",
     "name": "Bosch Ltd.",
     "sector": "Automobile and Auto Components",
-    "close": 49360.0,
-    "ret6m": 34.0
+    "close": 48800.0,
+    "ret6m": 38.6
+   },
+   {
+    "symbol": "DLF",
+    "name": "DLF Ltd.",
+    "sector": "Realty",
+    "close": 794.1,
+    "ret6m": 35.1
+   },
+   {
+    "symbol": "TVSMOTOR",
+    "name": "TVS Motor Company Ltd.",
+    "sector": "Automobile and Auto Components",
+    "close": 4528.2,
+    "ret6m": 33.9
+   },
+   {
+    "symbol": "KOTAKBANK",
+    "name": "Kotak Mahindra Bank Ltd.",
+    "sector": "Financial Services",
+    "close": 502.85,
+    "ret6m": 32.0
+   },
+   {
+    "symbol": "UNIONBANK",
+    "name": "Union Bank of India",
+    "sector": "Financial Services",
+    "close": 208.2,
+    "ret6m": 30.0
    },
    {
     "symbol": "ICICIBANK",
     "name": "ICICI Bank Ltd.",
     "sector": "Financial Services",
-    "close": 1640.0,
-    "ret6m": 32.5
+    "close": 1585.5,
+    "ret6m": 27.6
    },
    {
     "symbol": "INDIGO",
     "name": "InterGlobe Aviation Ltd.",
     "sector": "Services",
-    "close": 5587.6,
-    "ret6m": 31.0
-   },
-   {
-    "symbol": "MOTHERSON",
-    "name": "Samvardhana Motherson International Ltd.",
-    "sector": "Automobile and Auto Components",
-    "close": 166.53,
-    "ret6m": 26.0
-   },
-   {
-    "symbol": "HYUNDAI",
-    "name": "Hyundai Motor India Ltd.",
-    "sector": "Automobile and Auto Components",
-    "close": 2215.0,
-    "ret6m": 23.9
-   },
-   {
-    "symbol": "CHOLAFIN",
-    "name": "Cholamandalam Investment and Finance Company Ltd.",
-    "sector": "Financial Services",
-    "close": 1874.6,
-    "ret6m": 23.4
-   },
-   {
-    "symbol": "GAIL",
-    "name": "GAIL (India) Ltd.",
-    "sector": "Oil Gas & Consumable Fuels",
-    "close": 191.44,
-    "ret6m": 23.0
-   },
-   {
-    "symbol": "SBIN",
-    "name": "State Bank of India",
-    "sector": "Financial Services",
-    "close": 1165.1,
-    "ret6m": 22.5
-   },
-   {
-    "symbol": "BAJFINANCE",
-    "name": "Bajaj Finance Ltd.",
-    "sector": "Financial Services",
-    "close": 1122.0,
-    "ret6m": 21.5
+    "close": 5523.0,
+    "ret6m": 25.4
    },
    {
     "symbol": "TECHM",
     "name": "Tech Mahindra Ltd.",
     "sector": "Information Technology",
-    "close": 1746.2,
-    "ret6m": 21.3
+    "close": 1777.5,
+    "ret6m": 25.2
+   },
+   {
+    "symbol": "CHOLAFIN",
+    "name": "Cholamandalam Investment and Finance Company Ltd.",
+    "sector": "Financial Services",
+    "close": 1831.0,
+    "ret6m": 21.7
+   },
+   {
+    "symbol": "MOTHERSON",
+    "name": "Samvardhana Motherson International Ltd.",
+    "sector": "Automobile and Auto Components",
+    "close": 165.76,
+    "ret6m": 21.0
+   },
+   {
+    "symbol": "BAJFINANCE",
+    "name": "Bajaj Finance Ltd.",
+    "sector": "Financial Services",
+    "close": 1095.5,
+    "ret6m": 20.7
    },
    {
     "symbol": "TMCV",
     "name": "Tata Motors Ltd.",
     "sector": "Capital Goods",
-    "close": 456.75,
-    "ret6m": 20.3
+    "close": 453.8,
+    "ret6m": 19.5
    },
    {
-    "symbol": "TRENT",
-    "name": "Trent Ltd.",
-    "sector": "Consumer Services",
-    "close": 3256.1,
+    "symbol": "GAIL",
+    "name": "GAIL (India) Ltd.",
+    "sector": "Oil Gas & Consumable Fuels",
+    "close": 185.6,
+    "ret6m": 19.1
+   },
+   {
+    "symbol": "SBIN",
+    "name": "State Bank of India",
+    "sector": "Financial Services",
+    "close": 1132.65,
     "ret6m": 19.1
    },
    {
     "symbol": "EICHERMOT",
     "name": "Eicher Motors Ltd.",
     "sector": "Automobile and Auto Components",
-    "close": 8113.0,
-    "ret6m": 18.4
+    "close": 8172.5,
+    "ret6m": 18.6
+   },
+   {
+    "symbol": "HCLTECH",
+    "name": "HCL Technologies Ltd.",
+    "sector": "Information Technology",
+    "close": 1364.3,
+    "ret6m": 16.8
+   },
+   {
+    "symbol": "HYUNDAI",
+    "name": "Hyundai Motor India Ltd.",
+    "sector": "Automobile and Auto Components",
+    "close": 2155.0,
+    "ret6m": 16.8
    }
   ]
  },
@@ -1067,7 +1066,7 @@
   ]
  ],
  "validation": {
-  "sessionsTracked": 9,
+  "sessionsTracked": 10,
   "backtestEdge": false
  },
  "gaps": [],
